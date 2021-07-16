@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { addContact } from '../../redux/phonebook/phonebook-operations';
 import { v4 as uuid } from 'uuid';
 
+import { getContacts } from '../../redux/phonebook/phonebook-selectors.js';
+
 export class ContactForm extends Component {
   state = {
     name: '',
@@ -78,9 +80,10 @@ export class ContactForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    contacts: state.phonebook.contacts,
+    contacts: getContacts(state),
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     addContact: contact => dispatch(addContact(contact)),

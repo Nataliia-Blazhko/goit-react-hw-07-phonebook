@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { handleFilter } from '../../redux/phonebook/phonebook-actions';
+import { getFilter } from '../../redux/phonebook/phonebook-selectors';
 
 export class Filter extends Component {
   render() {
@@ -19,7 +20,7 @@ export class Filter extends Component {
 }
 const mapStateToProps = state => {
   return {
-    filter: state.phonebook.filter,
+    filter: getFilter(state),
   };
 };
 

@@ -5,10 +5,10 @@ import Filter from './components/filter/Filter';
 import './styles.scss';
 
 class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+  // state = {
+  //   contacts: [],
+  //   filter: '',
+  // };
 
   render() {
     return (

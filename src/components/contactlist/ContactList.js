@@ -3,23 +3,20 @@ import ContactListItem from './ContactListItem';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getContacts } from '../../redux/phonebook/phonebook-operations';
+import * as phonebookSelectors from '../../redux/phonebook/phonebook-selectors';
 
 export class ContactList extends Component {
   componentDidMount() {
     this.props.getContacts();
   }
   render() {
-    return (
+    return this.props.loading ? (
+      <div>Loading...</div>
+    ) : (
       <ul>
-        {this.props.loading ? (
-          <div>Loading...</div>
-        ) : (
-          this.props.contacts
-            .filter(item =>
-              item.name.toLowerCase().includes(this.props.filter.toLowerCase()),
-            )
-            .map(item => <ContactListItem key={item.id} {...item} />)
-        )}
+        {this.props.contacts.map(item => (
+          <ContactListItem key={item.id} {...item} />
+        ))}
       </ul>
     );
   }
@@ -27,9 +24,9 @@ export class ContactList extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.phonebook.loading,
-    contacts: state.phonebook.contacts,
-    filter: state.phonebook.filter,
+    loading: phonebookSelectors.getLoading(state),
+    contacts: phonebookSelectors.getVisibleContacts(state),
+    // filter: state.phonebook.filter,
   };
 };
 
